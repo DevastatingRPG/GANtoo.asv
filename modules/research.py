@@ -30,8 +30,11 @@ def summary(content):
         {content}"""
     })
     response = requests.request("POST", url, data=payload, headers=headers)
+    content = json.loads(response.text).get('content')
+    with open('files/output.txt', 'w') as f:
+        f.write(content)
     try:
-        return json.loads(response.text).get('content')
+        return content
     except json.decoder.JSONDecodeError:
         return "There was an error getting this content."
     
@@ -44,15 +47,13 @@ def qna(content, question):
     }
     payload = json.dumps({
         "question" : f"""
-        Your task is to answer the given question after interpreting ONLY the given content.
-    
-        Question: {question}
-        
-        Content: {content}"""
+        Prompt to Enter"""
     })
     response = requests.request("POST", url, data=payload, headers=headers)
+    content = json.loads(response.text).get('content')
+    with open('files/output.txt', 'w') as f:
+        f.write(content)
     try:
-        return json.loads(response.text).get('content')
+        return content
     except json.decoder.JSONDecodeError:
         return "There was an error getting this content."
-    
