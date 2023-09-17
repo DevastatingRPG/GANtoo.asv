@@ -4,13 +4,14 @@ from PyPDF2 import PdfReader
 dotenv.load_dotenv()
 WORQHAT_API_KEY = os.getenv('WORQHAT_API_KEY')
 
-def pdfRead(file):
-    pdfFileObj = open(f'./files/{file}', 'rb')
-    pdfReader = PdfReader(pdfFileObj)
-    Content = ''.join([page.extract_text() for page in pdfReader.pages])
-    pdfFileObj.close()
-    Content = str(Content.encode('utf-8'))
-    return Content
+def pdfRead(pdf_docs):
+    text = ""
+    for pdf in pdf_docs:
+        pdf_reader = PdfReader(pdf)
+        for page in pdf_reader.pages:
+            text += page.extract_text()
+    return text
+
 
 def summary(content):
     url = "https://api.worqhat.com/api/ai/content/v2"
@@ -54,3 +55,4 @@ def qna(content, question):
         return json.loads(response.text).get('content')
     except json.decoder.JSONDecodeError:
         return "There was an error getting this content."
+    
