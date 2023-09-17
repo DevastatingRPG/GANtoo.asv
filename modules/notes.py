@@ -54,6 +54,3 @@ def resource(topic):
   yt = requests.request(url, params_yt).json()
 
   return [result['url'] for result in alt["organic_results"][:5]], [result['url'] for result in yt["organic_results"][:5]]
-
-    
-  

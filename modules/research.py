@@ -47,7 +47,11 @@ def qna(content, question):
     }
     payload = json.dumps({
         "question" : f"""
-        Prompt to Enter"""
+        Your task is to answer the given question after interpreting ONLY the given content.
+    
+        Question: {question}
+        
+        Content: {content}"""
     })
     response = requests.request("POST", url, data=payload, headers=headers)
     content = json.loads(response.text).get('content')
