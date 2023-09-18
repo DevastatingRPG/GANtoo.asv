@@ -41,16 +41,17 @@ def notes(content):
 
 
 def resource(topic):
-  url = "http://api.serpstack.com/search"
+  url = 'https://serpapi.com/search'
   params = {
-    'access_key': SERP_API_KEY,
-    'query': f'"{topic}" Tutorial -youtube'
+    'api_key': SERP_API_KEY,
+    'q': f'"{topic}" Tutorial -youtube'
   }
-  alt = requests.request(url, params).json()
+  alt = requests.get(url, params).json()
   params_yt = {
-    'access_key': SERP_API_KEY,
-    'query': f'"{topic}" Tutorial site: youtube.com'
+    'api_key': SERP_API_KEY,
+    'q': f'"{topic}" Tutorial site: youtube.com'
   }
-  yt = requests.request(url, params_yt).json()
+  yt = requests.get(url, params_yt).json()
 
-  return [result['url'] for result in alt["organic_results"][:5]], [result['url'] for result in yt["organic_results"][:5]]
+  return [result['link'] for result in alt["organic_results"][:5]], [result['link'] for result in yt["organic_results"][:5]]
+
