@@ -53,5 +53,7 @@ def resource(topic):
   }
   yt = requests.get(url, params_yt).json()
 
-  return [result['link'] for result in alt["organic_results"][:5]], [result['link'] for result in yt["organic_results"][:5]]
+  return [result for result in alt["organic_results"][:5]], [result for result in yt["organic_results"][:5]]
+
+print(resource("Naive Bayes"))
 
